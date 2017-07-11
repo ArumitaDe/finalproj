@@ -24,6 +24,7 @@ class PodGallery extends Component {
                 <ImageGallery
                     items={this.state.images}
                     slideInterval={2000}
+                    useBrowserFullscreen={false}
                     onImageLoad={this.handleImageLoad}/>
             </div>
         );

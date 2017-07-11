@@ -12,24 +12,17 @@ var pod = new Schema({
   explanation: {
     type: String
   },
-  hdurl: {
+  original: {
     type: String
   },
    media_type: {
     type: String
   },
-   service_version: {
-    type: String
-  },
    title: {
     type: String
-  },
- url: {
-    type: String
   }
-
 },{
-	collection: 'items'
+	collection: 'one'
 });
 
 module.exports = mongoose.model('pod', pod);
