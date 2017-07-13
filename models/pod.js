@@ -9,7 +9,7 @@ var pod = new Schema({
   date: {
     type: Date
   },
-  explanation: {
+  description: {
     type: String
   },
   original: {
@@ -20,7 +20,23 @@ var pod = new Schema({
   },
    title: {
     type: String
+  },
+     description: {
+    type: String
+  },
+     thumbnailLabel: {
+    type: String
+  },
+     thumbnailTitle: {
+    type: String
+  },
+      thumbnail: {
+    type: String
+  },
+     originalTitle: {
+    type: String
   }
+
 },{
 	collection: 'one'
 });

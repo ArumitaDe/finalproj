@@ -7,7 +7,7 @@ var podrouter = require('./routes/podrouter')
 var request = require("request");
 var schedule = require('node-schedule');
 var pod = require('./models/pod');
-
+/*
 var j = schedule.scheduleJob('* 00 * * *', function() {
     request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-06-01",
 
@@ -36,8 +36,9 @@ var j = schedule.scheduleJob('* 00 * * *', function() {
 
 });
 
-/*
-{ request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-06-01", 
+*/
+{ request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-07-07", 
+  
 
     function(error, response, data) {
    var body = JSON.parse(data);
@@ -45,17 +46,21 @@ var j = schedule.scheduleJob('* 00 * * *', function() {
   var image = new pod({
   "copyright": body.copyright,
   "date": body.date,
-  "explanation": body.explanation,
-  "original": body.url,
-   "media_type": body.media_type,
-   "title": body.title,
- "thumbnail": body.url
+  "description1": body.explanation,
+  "original": "https://process.filestackapi.com/AAroAJCWESsSFzu09ec7rz/resize=width:650,height:450,fit:scale/"+body.url,
+  "media_type": body.media_type,
+ "originalTitle1": body.title,
+ "thumbnailTitle1": body.date,
+ "thumbnailLabel1":body.date,
+ "thumbnail": "https://process.filestackapi.com/AAroAJCWESsSFzu09ec7rz/resize=width:650,height:450,fit:scale/"+body.url
+
 
 });
+   if(body.media_type!='video')
   image.save();
 }); }
 
-*/
+
 
 
 /*
