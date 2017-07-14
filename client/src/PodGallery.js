@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './styles/css/index.css';
 import ImageGallery from 'react-image-gallery';
+import Modal from './modal';
 
 
 class PodGallery extends Component {
@@ -8,7 +9,7 @@ class PodGallery extends Component {
     constructor() {
     super();
     this.state = {
-      showIndex: false,
+      showIndex: true,
       slideOnThumbnailHover: false,
       showBullets: false,
       infinite: true,
@@ -20,8 +21,11 @@ class PodGallery extends Component {
       showNav: true,
       slideDuration: 450,
       slideInterval: 2000,
-      thumbnailPosition: 'right',
-      images: []
+      thumbnailPosition: 'bottom',
+      images: [],
+      isOpen :false,
+      modalinfo:'',
+      currentpic:null
     };
 
     }
@@ -38,9 +42,23 @@ class PodGallery extends Component {
     }
 
     
+    toggleModal = (event) => {
+    this.setState({
+      isOpen: !this.state.isOpen,
+      modalinfo:this.state.images[this._imageGallery.getCurrentIndex()].description1,
+      currentpic:this.state.images[this._imageGallery.getCurrentIndex()].original
+    });
+     console.log('hi there', event.target, 
+        this._imageGallery.getCurrentIndex(),this.state.images[this._imageGallery.getCurrentIndex()].description1);
+   
 
+       
+         
+
+       
+  }
   _onImageLoad(event) {
-    console.debug('loaded image', event.target.src);
+    console.log('loaded image', event.target.src);
   }
 
 
@@ -52,17 +70,25 @@ class PodGallery extends Component {
     console.debug('isFullScreen?', !!fullScreenElement);
   }
   _onPlay(index) {
-    console.debug('playing from index', index);
+    console.debug('playing from index', index); 
+  }
+  _onClick(event) {
+    console.log('hi there', event.target, 
+        this._imageGallery.getCurrentIndex(),this.state.images[this._imageGallery.getCurrentIndex()].description1);
+    this.state.modal
   }
     render() {
         return (
+            <div>
             <section className='app'>
                 <ImageGallery
-                   
+                    ref={i => this._imageGallery = i}
                    items={this.state.images}
                    lazyLoad={false}
           onImageLoad = { this._onImageLoad }
         onPause = { this._onPause.bind(this) }
+        onClick = { this.toggleModal.bind(this)}
+
             onScreenChange={this._onScreenChange.bind(this)}
           onPlay={this._onPlay.bind(this)}
           infinite={this.state.infinite}
@@ -75,8 +101,18 @@ class PodGallery extends Component {
           thumbnailPosition={this.state.thumbnailPosition}
           slideDuration={parseInt(this.state.slideDuration)}
           slideInterval={parseInt(this.state.slideInterval)}
-          slideOnThumbnailHover={this.state.slideOnThumbnailHover}/>
+          slideOnThumbnailHover={this.state.slideOnThumbnailHover}>
+          
+       
+        </ImageGallery>
+        <Modal show={this.state.isOpen}
+          onClose={this.toggleModal.bind(this)}
+          >
+          {this.state.modalinfo}
+        </Modal>
             </section>
+           </div> 
+       
         );
     }
 

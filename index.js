@@ -36,8 +36,8 @@ var j = schedule.scheduleJob('* 00 * * *', function() {
 
 });
 
-*/
-{ request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-07-07", 
+
+{ request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-06-0", 
   
 
     function(error, response, data) {
