@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 class Modal extends React.Component {
   render() {
+  	
     // Render nothing if the "show" prop is false
     if(!this.props.show) {
       return null;
@@ -14,26 +15,19 @@ class Modal extends React.Component {
       bottom: 0,
       left: 0,
       right: 0,
-      backgroundColor: 'pink',
-      padding: 50,
+      padding: 50
+     
       
     };
 
     // The modal "window"
-    const modalStyle = {
-      backgroundColor: 'purple',
-      borderRadius: 5,
-      maxWidth: 500,
-      minHeight: 300,
-      margin: '0 auto',
-      padding: 30
-    };
+    
 
     return (
       <div className="backdrop" style={backdropStyle}>
-        <div className="modal1" style={modalStyle} >
+        <div className="modal1" style={this.props.modalStyle} >
           {this.props.children}
-
+           
           <div className="footer">
             <button onClick={this.props.onClose}>
               Close

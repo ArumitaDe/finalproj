@@ -35,9 +35,8 @@ var j = schedule.scheduleJob('* 00 * * *', function() {
         });
 
 });
-
-
-{ request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-06-0", 
+*/
+{ request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-06-30", 
   
 
     function(error, response, data) {
@@ -48,6 +47,7 @@ var j = schedule.scheduleJob('* 00 * * *', function() {
   "date": body.date,
   "description1": body.explanation,
   "original": "https://process.filestackapi.com/AAroAJCWESsSFzu09ec7rz/resize=width:650,height:450,fit:scale/"+body.url,
+  "modalurl":body.url,
   "media_type": body.media_type,
  "originalTitle1": body.title,
  "thumbnailTitle1": body.date,
@@ -61,9 +61,9 @@ var j = schedule.scheduleJob('* 00 * * *', function() {
 }); }
 
 
-
-
 /*
+
+
 setInterval(function(){ request("https://api.nasa.gov/planetary/apod?api_key=pgWVAwOzwqCCZF5iHXxWh2vzTL89ggO0WmYcgP2Z", 
 
     function(error, response, data) {
@@ -87,14 +87,15 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 */
 // Mongoose connection with mongodb
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/nasa')
-    .then(() => { // if all is ok we will be here
-        console.log('Start');
-    })
-    .catch(err => { // if error we will be here
-        console.error('App starting error:', err.stack);
-        process.exit(1);
-    });
+//
+  
+if(process.env.MONGODB_URI)
+{
+  mongoose.connect(process.env.MONGODB_URI);
+}
+else
+mongoose.connect('mongodb://localhost/nasa');
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }));

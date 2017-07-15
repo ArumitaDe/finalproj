@@ -33,6 +33,9 @@ var pod = new Schema({
       thumbnail: {
     type: String
   },
+   modalurl: {
+    type: String
+  },
      originalTitle1: {
     type: String
   }

@@ -331,7 +331,8 @@ body {
   margin: 0;
   padding: 0;
   color: #41f1f4;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: medium;
   -webkit-animation: mymove 5s infinite;
   /* Chrome, Safari, Opera */
   animation: mymove 5s infinite; }
@@ -368,12 +369,10 @@ label {
   transition: all 1s ease; }
 
 .backdrop {
-  z-index: 4;
-  background-color: rgba(0, 0, 0, 0.0001) !important; }
+  z-index: 4; }
 
 .modal1 {
-  z-index: 6;
-  background-color: rgba(0, 0, 0, 0.0001) !important; }
+  z-index: 6; }
 
 .app-buttons li {
   display: block; }
