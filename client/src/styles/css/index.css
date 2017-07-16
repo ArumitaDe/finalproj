@@ -347,32 +347,16 @@ body {
   50% {
     text-shadow: 10px 20px 30px #41f1f4; } }
 
-ul, li {
-  padding: 0;
-  margin: 0;
-  list-style: none; }
-
-li {
-  padding: 3px 0;
-  display: inline-block; }
-
 label {
   margin-left: 5px; }
 
-.app-header {
-  letter-spacing: 1px;
-  text-transform: uppercase; }
+.ModalHeading {
+  color: white; }
 
 .app .image-gallery {
   margin: 0 auto;
   width: 65%;
   transition: all 1s ease; }
-
-.backdrop {
-  z-index: 4; }
-
-.modal1 {
-  z-index: 6; }
 
 .app-buttons li {
   display: block; }

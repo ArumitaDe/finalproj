@@ -4,8 +4,9 @@ body {
   padding: 0;
  
   color: #41f1f4;
-  //font-family: 'Orbitron', sans-serif;
+ //font-family: 'Orbitron', sans-serif;
   font-family: 'Rajdhani', sans-serif;
+ 
   font-weight: medium;
    -webkit-animation: mymove 5s infinite; /* Chrome, Safari, Opera */
     animation: mymove 5s infinite;
@@ -19,30 +20,15 @@ body {
 @keyframes mymove {
     50% {text-shadow: 10px 20px 30px #41f1f4;}
 }
-ul, li {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
 
-li {
-  padding: 3px 0;
-  display: inline-block;
-}
 
 label {
-  margin-left: 5px;
+  margin-left: 5px ;
 }
 
-.app {
-
+.ModalHeading{
+  color:white;
 }
-
-.app-header {
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
 
 
 .app .image-gallery,
@@ -52,18 +38,6 @@ label {
   transition: all 1s ease;
 }
 
-.backdrop{
-  z-index: 4;
-   
-  
-}
-
-.modal1{
-  
-     
-   z-index: 6;
-  
-}
 
 
 .app-buttons li {

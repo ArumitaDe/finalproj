@@ -8,6 +8,7 @@ var request = require("request");
 var schedule = require('node-schedule');
 var pod = require('./models/pod');
 /*
+
 var j = schedule.scheduleJob('* 00 * * *', function() {
     request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-06-01",
 
@@ -35,8 +36,8 @@ var j = schedule.scheduleJob('* 00 * * *', function() {
         });
 
 });
-*/
-{ request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-06-30", 
+
+{ request("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=2017-07-07", 
   
 
     function(error, response, data) {
@@ -46,6 +47,7 @@ var j = schedule.scheduleJob('* 00 * * *', function() {
   "copyright": body.copyright,
   "date": body.date,
   "description1": body.explanation,
+  "description": body.title +". Dated - "+body.date+".",
   "original": "https://process.filestackapi.com/AAroAJCWESsSFzu09ec7rz/resize=width:650,height:450,fit:scale/"+body.url,
   "modalurl":body.url,
   "media_type": body.media_type,
