@@ -347,6 +347,10 @@ body {
   50% {
     text-shadow: 10px 20px 30px #41f1f4; } }
 
+.react-datepicker__input-container {
+  font-weight: bolder;
+  color: black; }
+
 label {
   margin-left: 5px; }
 

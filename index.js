@@ -105,6 +105,8 @@ app.use(bodyParser.json());
 
 app.use('/pod', podrouter);
 
+app.use('/static', express.static(__dirname + '/client/build/static'))
+
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
@@ -113,4 +115,5 @@ app.get('*', (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
+console.log('listening on ', port);
 app.listen(port);

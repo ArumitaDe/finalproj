@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './styles/css/index.css';
 import ImageGallery from 'react-image-gallery';
-import Modal from './modal';
 import Modall from 'react-responsive-modal';
 import Typist from 'react-typist';
 import DatePicker from 'react-datepicker';
@@ -30,7 +29,6 @@ class PodGallery extends Component {
             modalinfo: '',
             currentpic: null,
             open: false,
-
             renderMsg: false,
             dateHasVideoMsg: '',
             startDate: moment()
@@ -60,19 +58,21 @@ class PodGallery extends Component {
         };
         fetch("https://api.nasa.gov/planetary/apod?api_key=XKfoeQE8mIxxmHoYpxZpduljk0xC3ad3XCicQxLZ&date=" + formattedDate, myInit) // Call the fetch function passing the url of the API as a parameter
             .then(function (response) {
-                if (response.status == 400) {
+                if (response.status === 400) {
+                   console.log(" opening 1st modal ");
                     self.setState({
                         modalheading: 'Error ! ',
                         modalinfo: 'The requested file does not exist ! You may have selected a future date',
                         open: true
                     });
+                    console.log(" 1st modal opened");
                 }
-                return response.json();
+               return response.json();
             })
             .then(function (body) {
                 console.log(body);
 
-                if (body.media_type == "image") {
+                if (body.media_type === "image") {
                     obj = {
                         "copyright": body.copyright,
                         "date": body.date,
@@ -90,19 +90,24 @@ class PodGallery extends Component {
                     console.log(obj);
                     console.log(self.state.images);
                     var p = self.state.images;
-                    p.push(obj);
+                    p.unshift(obj);
 
                     console.log(p);
                     self.setState({images: p});
+                    
                     //self.state.images.push(obj);
 
                 }
                 else
-                    self.setState({
+                    {
+                        console.log("opening 2nd modal");
+                        self.setState({
                         modalheading: 'Error ! ',
                         modalinfo: 'Uh Oh ! On this date NASA had a video as an APOD, which is currently not supported. Please try another date !',
                         open: true
                     });
+                        console.log(" 2nd modal opened");
+                    }
                 console.log("obj is");
                 console.log(obj);
 
@@ -182,7 +187,7 @@ _onPlay(index)
 
 render()
 {
-    const {open, open1} = this.state;
+    const {open} = this.state;
     var a = this.state.currentpic;
     var b = 'url("' + a + '")'
     console.log(b);
