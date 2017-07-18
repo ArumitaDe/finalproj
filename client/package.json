@@ -9,7 +9,7 @@
     "npm-run-all": "^4.0.2",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
-    "react-datepicker": "^0.52.0",
+    "react-day-picker": "^6.1.0",
     "react-dom": "^15.6.1",
     "react-image-gallery": "^0.8.3",
     "react-responsive-modal": "^1.7.1",

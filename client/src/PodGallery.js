@@ -3,14 +3,16 @@ import './styles/css/index.css';
 import ImageGallery from 'react-image-gallery';
 import Modall from 'react-responsive-modal';
 import Typist from 'react-typist';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+
 class PodGallery extends Component {
 
     constructor() {
         super();
         this.state = {
+            selectedDay: undefined,
             showIndex: true,
             slideOnThumbnailHover: false,
             showBullets: false,
@@ -36,15 +38,18 @@ class PodGallery extends Component {
         this.onOpenModal = this.onOpenModal.bind(this);
         this.onCloseModal = this.onCloseModal.bind(this);
 
+
     }
 
     onHeaderTyped = () => {
         this.setState({renderMsg: true});
     }
 
-    handleChange(date) {
-        console.log(date.format('YYYY-MM-DD'));
-        var formattedDate = date.format('YYYY-MM-DD');
+    handleDayClick = date => {
+    this.setState({ selectedDay:date });
+         
+        console.log(date);
+        var formattedDate = date.toISOString().substring(0, 10);
         var self = this;
         this.setState({
             startDate: date
@@ -103,7 +108,7 @@ class PodGallery extends Component {
                         console.log("opening 2nd modal");
                         self.setState({
                         modalheading: 'Error ! ',
-                        modalinfo: 'Uh Oh ! On this date NASA had a video as an APOD, which is currently not supported. Please try another date !',
+                        modalinfo: 'NASA had a video(unsupported media) as an APOD, or the picture is unavailable. Please try another date !',
                         open: true
                     });
                         console.log(" 2nd modal opened");
@@ -248,10 +253,12 @@ render()
             <h1>
                 <center>Explore Pictures from other dates</center>
             </h1>
-            <center><DatePicker
-                dateFormat="YYYY/MM/DD"
-                selected={this.state.startDate}
-                onChange={this.handleChange.bind(this)}/>
+            <center><DayPicker 
+             onDayClick={this.handleDayClick}
+          selectedDays={this.state.selectedDay}
+            />
+        
+      
             </center>
 
         </div>
