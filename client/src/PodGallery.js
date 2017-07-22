@@ -284,6 +284,9 @@ render()
                         ) : null }
                     </Modall>
                 </div>
+                 <h1>
+                <center>Near Earth Objects for Today</center>
+            </h1>
                 <Table />
            </div> 
           </div>
