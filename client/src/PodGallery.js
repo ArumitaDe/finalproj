@@ -5,6 +5,7 @@ import Modall from 'react-responsive-modal';
 import Typist from 'react-typist';
 import moment from 'moment';
 import DayPicker from 'react-day-picker';
+import Table from './table';
 import 'react-day-picker/lib/style.css';
 
 class PodGallery extends Component {
@@ -13,6 +14,7 @@ class PodGallery extends Component {
         super();
         this.state = {
             selectedDay: undefined,
+            startindex:0,
             showIndex: true,
             slideOnThumbnailHover: false,
             showBullets: false,
@@ -40,7 +42,7 @@ class PodGallery extends Component {
 
 
     }
-
+   
     onHeaderTyped = () => {
         this.setState({renderMsg: true});
     }
@@ -89,19 +91,23 @@ class PodGallery extends Component {
                         "originalTitle1": body.title,
                         "thumbnailTitle1": body.date,
                         "thumbnailLabel1": body.date,
+                        "defaultImage":"https://process.filestackapi.com/AAroAJCWESsSFzu09ec7rz/resize=width:650,height:450,fit:scale/https://apod.nasa.gov/apod/image/1707/ic342_rector1024s.jpg",
                         "thumbnail": "https://process.filestackapi.com/AAroAJCWESsSFzu09ec7rz/resize=width:650,height:450,fit:scale/" + body.url
                     };
                     console.log("obj is");
                     console.log(obj);
                     console.log(self.state.images);
-                    var p = self.state.images;
-                    p.unshift(obj);
+                      var p = self.state.images;
+                    //p.unshift(obj);
 
                     console.log(p);
-                    self.setState({images: p});
+                    self.state.startindex=0;
+                    self.setState({
+                        
+                        images: [obj,...p]});
                     
                     //self.state.images.push(obj);
-
+                    self._imageGallery.slideToIndex(0);
                 }
                 else
                     {
@@ -119,12 +125,7 @@ class PodGallery extends Component {
             }
 );
 
-        console.log(this.state.images);
-        console.log("obj just before push is");
-        console.log(obj);
-
-
-        console.log(this.state.images);}
+}
 onOpenModal()
 {
     this.setState({open: true});
@@ -157,7 +158,7 @@ toggleModal = (event) => {
         renderMsg: false,
         open: !this.state.Open,
         modalinfo: this.state.images[this._imageGallery.getCurrentIndex()].description1,
-        currentpic: this.state.images[this._imageGallery.getCurrentIndex()].modalurl,
+        currentpic: this.state.images[this._imageGallery.getCurrentIndex()+1].modalurl,
         modalheading: this.state.images[this._imageGallery.getCurrentIndex()].description
 
     });
@@ -170,7 +171,12 @@ toggleModal = (event) => {
 
 _onImageLoad(event)
 {
-    console.log('loaded image', event.target.src);
+    this.setState({
+        
+        currentpic: this.state.images[this._imageGallery.getCurrentIndex()].modalurl,
+       
+
+    });
 }
 
 
@@ -194,7 +200,7 @@ render()
 {
     const {open} = this.state;
     var a = this.state.currentpic;
-    var b = 'url("' + a + '")'
+    var b = 'url("' + this.state.currentpic + '")'
     console.log(b);
     const modStyle =
         {
@@ -204,18 +210,35 @@ render()
             backgroundStyle: 'cover',
             textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black'
         };
+    const bgStyle=
+    {
+
+  backgroundStyle: '-moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 59%, rgba(0, 0, 0, 0.65) 100%), '+{b}+' no-repeat',
+  backgroundStyle: '-webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(59%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.65))), '+b+' no-repeat',
+  backgroundStyle: '-webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 59%, rgba(0, 0, 0, 0.65) 100%), '+{b}+' no-repeat',
+  backgroundStyle: '-o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 59%, rgba(0, 0, 0, 0.65) 100%), '+{b}+' no-repeat',
+  backgroundStyle: '-ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 59%, rgba(0, 0, 0, 0.65) 100%), '+{b}+' no-repeat',
+  backgroundStyle: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 59%, rgba(0, 0, 0, 0.65) 100%), '+{b}+' no-repeat',
+  height: '200px'
+
+};
+
+    
 
     return (
-        <div>
+            <div id= 'section1' style = {bgStyle}>
+            <div className='container'>
             <h1>
                 <center>NASA Picture of the Day</center>
             </h1>
+            
             <section className='app'>
+            <div>
                 <ImageGallery
                     ref={i => this._imageGallery = i}
                     items={this.state.images}
                     lazyLoad={false}
-                    onImageLoad={ this._onImageLoad }
+                    onImageLoad={ this._onImageLoad.bind(this) }
                     onPause={ this._onPause.bind(this) }
                     onClick={ this.toggleModal.bind(this)}
 
@@ -231,11 +254,23 @@ render()
                     thumbnailPosition={this.state.thumbnailPosition}
                     slideDuration={parseInt(this.state.slideDuration)}
                     slideInterval={parseInt(this.state.slideInterval)}
-                    slideOnThumbnailHover={this.state.slideOnThumbnailHover}>
+                    slideOnThumbnailHover={this.state.slideOnThumbnailHover}
+                    startIndex={this.state.startindex}>
 
 
                 </ImageGallery>
-
+            </div>
+            <div>
+                  <h4>
+                <center>Explore Pictures from other dates</center>
+            </h4>
+            <center><DayPicker 
+             onDayClick={this.handleDayClick}
+          selectedDays={this.state.selectedDay}
+            />
+          </center>
+          </div>
+                </section>
                 <div>
 
                     <Modall open={open} onClose={this.onCloseModal} little modalStyle={modStyle}
@@ -249,19 +284,11 @@ render()
                         ) : null }
                     </Modall>
                 </div>
-            </section>
-            <h1>
-                <center>Explore Pictures from other dates</center>
-            </h1>
-            <center><DayPicker 
-             onDayClick={this.handleDayClick}
-          selectedDays={this.state.selectedDay}
-            />
-        
-      
-            </center>
+                <Table />
+           </div> 
+          </div>
 
-        </div>
+    
     );
 }
 
